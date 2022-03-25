@@ -17,7 +17,7 @@ read -p 'enter ur name ' name
 
 echo "your name $name"
 
-echo a1 =$0
+echo a1script name =$0
 echo a2 =$1
 echo all as =$*
 echo no of a =$#
