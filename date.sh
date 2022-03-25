@@ -7,3 +7,6 @@ a=12
 b=22
 ADD=$(($a+$b))
 echo ADD = $ADD
+
+TIME=$(time +%T)
+echo time = $TIME
