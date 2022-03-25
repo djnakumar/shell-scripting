@@ -1,4 +1,4 @@
 #!/bin/bash
 
-date=$(date +%F)
-eco date =$(date)
+DATE=$(date +%F)
+echo date =$DATE
