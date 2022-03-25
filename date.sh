@@ -13,6 +13,6 @@ echo ADD = $ADD
 echo training =${TRAINING}
 
 
-read 'name' j10
+read -p 'name' j10
 
 eco "hi $j10"
