@@ -10,4 +10,4 @@ echo ADD = $ADD
 
 
 
-echo training =$TRAINING
+echo training =${TRAINING}
