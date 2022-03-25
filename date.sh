@@ -11,3 +11,8 @@ echo ADD = $ADD
 
 
 echo training =${TRAINING}
+
+
+read 'name' j10
+
+eco "hi $j10"
