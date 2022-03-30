@@ -33,7 +33,7 @@ yum install mongodb-org -y &>>$LOG_FILE
 statcheck $?
 
 print "update mongodb listen address"
-sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongodb.conf
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 statcheck $?
 
 print "start mongodb"
