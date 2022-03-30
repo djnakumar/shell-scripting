@@ -1,5 +1,3 @@
-#!/bin/bash
-
 statcheck() {
   if [ $1 -eq 0 ]; then
     echo -e "\e[32msuccess\e[0m"
