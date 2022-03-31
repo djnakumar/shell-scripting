@@ -15,7 +15,7 @@ useradd ${APP_USER} &>>${LOG_FILE}
 statcheck $?
 
 print "download app component"
-curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
+curl -f -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
 statcheck $?
 
 print "cleanup old content"
