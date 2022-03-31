@@ -23,7 +23,7 @@ rm -rf /home/${APP_USER}/catalogue &>>${LOG_FILE}
 statcheck $?
 
 print "extract app content"
-cd /home/${APP_USER} &>>${LOG_FILE} && unzip /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue &>>${LOG_FILE}
+cd /home/${APP_USER} &>>${LOG_FILE} && unzip -o /tmp/catalogue.zip &>>${LOG_FILE} && mv catalogue-main catalogue &>>${LOG_FILE}
 statcheck $?
 
 print "install app dependencies"
