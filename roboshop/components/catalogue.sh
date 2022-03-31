@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source components/catalogue.sh
+source components/common.sh
 
 print "configure yum repos"
 curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>${LOG_FILE}
