@@ -20,6 +20,6 @@ fi
 statcheck $?
 
 
-print"start redis service"
+print "start redis service"
 systemctl enable redis &>>${LOG_FILE} && systemctl start redis &>>${LOG_FILE}
-statcheck$?
+statcheck $?
