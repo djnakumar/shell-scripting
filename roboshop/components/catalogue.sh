@@ -10,12 +10,12 @@ print "install nodejs"
 yum install nodejs gcc-c++ -y &>>${LOG_FILE}
 statcheck $?
 
-print "app aplication user"
+print "add aplication user"
 id ${APP_USER} &>>${LOG_FILE}
 if [ $? -ne 0 ]; then
   useradd $(APP_USER) &>>${LOG_FILE}
-statcheck $?
 fi
+statcheck $?
 
 print "download app component"
 curl -f -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>${LOG_FILE}
