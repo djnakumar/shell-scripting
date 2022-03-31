@@ -9,7 +9,7 @@ curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/robos
 statcheck $?
 
 print "Install MongoDB"
-yum install mongodb-org -y &>>$LOG_FILE
+yum install -y mongodb-org &>>$LOG_FILE
 statcheck $?
 
 print "update mongodb listen address"
