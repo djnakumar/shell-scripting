@@ -35,7 +35,7 @@ NODEJS() {
   print "add aplication user"
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
-    useradd $(APP_USER) &>>${LOG_FILE}
+    useradd ${APP_USER} &>>${LOG_FILE}
     statcheck $?
   fi
 
