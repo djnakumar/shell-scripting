@@ -36,9 +36,9 @@ NODEJS() {
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
     useradd ${APP_USER} &>>${LOG_FILE}
-    statcheck $?
   fi
 
+  statcheck $?
 
   print "download app component"
   curl -f -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
