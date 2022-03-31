@@ -37,7 +37,6 @@ NODEJS() {
   if [ $? -ne 0 ]; then
     useradd ${APP_USER} &>>${LOG_FILE}
   fi
-
   statcheck $?
 
   print "download app component"
