@@ -20,3 +20,5 @@ if [ "$user_id" -ne 0 ]; then
 fi
 LOG_FILE=/tmp/roboshop.log
 rm -f $LOG_FILE
+
+APP_USER=roboshop
