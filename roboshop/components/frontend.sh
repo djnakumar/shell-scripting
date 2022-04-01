@@ -17,7 +17,7 @@ statcheck $?
 cd /usr/share/nginx/html
 
 print "extracting archive"
-unzip /tmp/frontend.zip &>>$LOG_FILE && mv frontend-main/* &>>$LOG_FILE . && mv static/* . &>>$LOG_FILE
+unzip /tmp/frontend.zip &>>$LOG_FILE && mv frontend-main/* . &>>$LOG_FILE && mv static/* . &>>$LOG_FILE
 statcheck $?
 
 print "update roboshop configuration"
