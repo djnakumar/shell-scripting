@@ -26,10 +26,11 @@ APP_USER=roboshop
 APP_SETUP() {
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
-  print "add application user"
+    print "add application user"
     useradd ${APP_USER} &>>${LOG_FILE}
+    statcheck $?
   fi
-  statcheck $?
+
   print "download app component"
     curl -f -s -L -o /tmp/${COMPONENT}.zip "https://github.com/roboshop-devops-project/${COMPONENT}/archive/main.zip" &>>${LOG_FILE}
     statcheck $?
@@ -98,5 +99,7 @@ MAVEN() {
   print "maven package"
   cd /home/${APP_USER}/${COMPONENT} &>>${LOG_FILE} && mvn clean package &>>${LOG_FILE} && mv target/shipping-1.0.jar shipping.jar &>>${LOG_FILE}
   statcheck $?
+
+
   SERVICE_SETUP
 }
