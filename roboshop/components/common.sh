@@ -53,7 +53,7 @@ NODEJS() {
 
   APP_SETUP
 
-  print "add aplication user"
+  print "add application user"
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
     useradd ${APP_USER} &>>${LOG_FILE}
