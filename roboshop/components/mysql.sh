@@ -24,9 +24,9 @@ if [ $? -ne 0 ]; then
   statcheck $?
 fi
 
-echo show plugins | mysql -uroot -pRoboShop@1 2>>${LOG_FILE} | grep validate
+echo show plugins | mysql -uroot -pRoboShop@1 2>>${LOG_FILE} | grep validate_password ${LOG_FILE}
 if [ $? -eq 0 ]; then
-  echo "uninstall password validate plugin"
+  print "uninstall password validate plugin"
   echo 'uninstall plugin validate_password;' >/tmp/pass-validate.sql
   mysql --connect-expired-password -uroot -pRoboShop@1 </tmp/pass-validate.sql &>>${LOG_FILE}
   statcheck $?
