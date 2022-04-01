@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source componnents/common.sh
+source components/common.sh
 
 COMPONENT=shipping
 
