@@ -85,7 +85,7 @@ service_setup() {
    systemctl daemon-reload &>>${LOG_FILE} && systemctl restart ${COMPONENT} &>>${LOG_FILE} && systemctl enable ${COMPONENT} &>>${LOG_FILE}
    statcheck $?
 
-   SERVIVCE_SETUP
+   SERVICE_SETUP
 }
 
 MAVEN() {
