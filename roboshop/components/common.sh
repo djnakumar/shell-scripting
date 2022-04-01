@@ -99,7 +99,7 @@ MAVEN() {
   cd /home/${APP_USER}/${COMPONENT} &>>${LOG_FILE} && mvn clean package &>>${LOG_FILE} && mv target/shipping-1.0.jar shipping.jar &>>${LOG_FILE}
   statcheck $?
 
-  SERVICE_SETUP
+
 
 
 }
