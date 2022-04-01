@@ -26,7 +26,7 @@ APP_USER=roboshop
 APP_SETUP() {
   id ${APP_USER} &>>${LOG_FILE}
   if [ $? -ne 0 ]; then
-    print "add application user"
+  print "add application user"
     useradd ${APP_USER} &>>${LOG_FILE}
   fi
   statcheck $?
