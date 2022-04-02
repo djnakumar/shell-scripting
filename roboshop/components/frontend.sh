@@ -22,8 +22,12 @@ statcheck $?
 
 print "update roboshop configuration"
 mv localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
-sed -i -e '/catalogue/s/localhost/catalogue.roboshop.internal/' -e '/user/s/localhost/user.roboshop.internal/' -e '/cart/s/localhost/cart.roboshop.internal/' /etc/nginx/default.d/robo shop.conf
-statcheck $?
+for component in catalogue user cart shipping payment; do
+  echo -e "updating $component in configuration"
+  sed -i -e '/catalogue/s/localhost/catalogue.roboshop.internal/' -e '/user/s/localhost/user.roboshop.internal/' -e '/cart/s/localhost/cart.roboshop.internal/' /etc/nginx/default.d/robo shop.conf
+  statcheck $?
+done
+
 
 print "starting nginx"
 systemctl restart nginx &>>$LOG_FILE && systemctl enable nginx &>>$LOG_FILE
