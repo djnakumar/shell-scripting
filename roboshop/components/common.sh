@@ -44,19 +44,19 @@ APP_SETUP() {
   statcheck $?
 }
 
-service_setup() {
+SERVICE_SETUP() {
    print "fix app user permissions"
    chown -R ${APP_USER}:${APP_USER} /home/${APP_USER}
    statcheck $?
 
    print "setup systemd file"
    sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' \
-   -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
-   -e 's/MONGODB_ENDPOINT/mongodb.roboshop.internal/' \
-   -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
-   -e 's/CARTENDPOINT/cart.roboshop.internal/' \
-   -e 's/dbhost/mysql.roboshop.internal/' \
-   /home/roboshop/${COMPONENT}/systemd.service &>>${LOG_FILE} && mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
+          -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
+          -e 's/MONGODB_ENDPOINT/mongodb.roboshop.internal/' \
+          -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
+          -e 's/CARTENDPOINT/cart.roboshop.internal/' \
+          -e 's/dbhost/mysql.roboshop.internal/' \
+          /home/roboshop/${COMPONENT}/systemd.service &>>${LOG_FILE} && mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
    statcheck $?
 
    print "restart ${COMPONENT} services"
