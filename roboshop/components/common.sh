@@ -36,6 +36,7 @@ APP_SETUP() {
   statcheck $?
 
   print "cleanup old content"
+  # shellcheck disable=SC2115
   rm -rf /home/${APP_USER}/${COMPONENT} &>>${LOG_FILE}
   statcheck $?
 
