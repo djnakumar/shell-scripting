@@ -58,6 +58,9 @@ SERVICE_SETUP() {
          -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
          -e 's/CARTENDPOINT/cart.roboshop.internal/' \
          -e 's/DBHOST/mysql.roboshop.internal/' \
+         -e 's/CARTHOST/cart.roboshop.internal/' \
+         -e 's/USERHOST/user.roboshop.internal/' \
+         -e 's/AMQPHOST/rabbitmq.roboshop.internal/' \
          /home/roboshop/${COMPONENT}/systemd.service &>>${LOG_FILE} && mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
   statcheck $?
 
@@ -108,44 +111,18 @@ MAVEN() {
 }
 
 PYTHON() {
-  This service is responsible for payments in RoboShop e-commerce app.
+  print "Install Python"
+  yum install python36 gcc python3-devel -y &>>${LOG_FILE}
+  statcheck $?
 
-  This service is written on `Python 3`, So need it to run this app.
+  APP_SETUP
 
-  CentOS 7 comes with `Python 2` by default. So we need `Python 3` to be installed.
+  print "Install the dependencies"
+  cd /home/${APP_USER}/${COMPONENT} && pip3 install -r requirements.txt &>>${LOG_FILE}
+  statcheck $?
 
-  1. Install Python 3
 
-  ```sql
-  # yum install python36 gcc python3-devel -y
-  ```
-
-  1. Create a user for running the application
-
-  ```sql
-  # useradd roboshop
-  ```
-
-  1. Download the repo.
-
-  ```sql
-  $ cd /home/roboshop
-  $ curl -L -s -o /tmp/payment.zip "https://github.com/roboshop-devops-project/payment/archive/main.zip"
-  $ unzip /tmp/payment.zip
-  $ mv payment-main payment
-  ```
-
-  1. Install the dependencies
-
-  ```bash
-  # cd /home/roboshop/payment
-  # pip3 install -r requirements.txt
-  ```
-
-  **Note: Above command may fail with permission denied, So run as root user**
-
-  1. Update the roboshop user and group id in `payment.ini` file.
-  2. Update SystemD service file
+  SERVICE_SETUP
 
       Update `CARTHOST` with cart server ip
 
@@ -153,12 +130,4 @@ PYTHON() {
 
       Update `AMQPHOST` with RabbitMQ server ip.
 
-  3. Setup the service
-
-  ```sql
-  # mv /home/roboshop/payment/systemd.service /etc/systemd/system/payment.service
-  # systemctl daemon-reload
-  # systemctl enable payment
-  # systemctl start payment
-  ```
 }
