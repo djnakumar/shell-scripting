@@ -43,6 +43,29 @@ APP_SETUP() {
   cd /home/${APP_USER} &>>${LOG_FILE} && unzip -o /tmp/${COMPONENT}.zip &>>${LOG_FILE} && mv ${COMPONENT}-main ${COMPONENT} &>>${LOG_FILE}
   statcheck $?
 }
+
+service_setup() {
+   print "fix app user permissions"
+   chown -R ${APP_USER}:${APP_USER} /home/${APP_USER}
+   statcheck $?
+
+   print "setup systemd file"
+   sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' \
+   -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
+   -e 's/MONGODB_ENDPOINT/mongodb.roboshop.internal/' \
+   -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
+   -e 's/CARTENDPOINT/cart.roboshop.internal/' \
+   -e 's/dbhost/mysql.roboshop.internal/' \
+   /home/roboshop/${COMPONENT}/systemd.service &>>${LOG_FILE} && mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
+   statcheck $?
+
+   print "restart ${COMPONENT} services"
+   systemctl daemon-reload &>>${LOG_FILE} && systemctl restart ${COMPONENT} &>>${LOG_FILE} && systemctl enable ${COMPONENT} &>>${LOG_FILE}
+   statcheck $?
+
+   SERVICE_SETUP
+}
+
 NODEJS() {
   print "configure yum repos"
   curl -fsSL https://rpm.nodesource.com/setup_lts.x | bash - &>>${LOG_FILE}
@@ -65,28 +88,8 @@ NODEJS() {
   cd /home/${APP_USER}/${COMPONENT} &>>${LOG_FILE} && npm install &>>${LOG_FILE}
   statcheck $?
 
-}
+  SERVICE_SETUP
 
-service_setup() {
-   print "fix app user permissions"
-   chown -R ${APP_USER}:${APP_USER} /home/${APP_USER}
-   statcheck $?
-
-   print "setup systemd file"
-   sed -i -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/' \
-   -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' \
-   -e 's/MONGODB_ENDPOINT/mongodb.roboshop.internal/' \
-   -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' \
-   -e 's/CARTENDPOINT/cart.roboshop.internal/' \
-   -e 's/dbhost/mysql.roboshop.internal/' \
-   /home/roboshop/${COMPONENT}/systemd.service &>>${LOG_FILE} && mv /home/roboshop/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>>${LOG_FILE}
-   statcheck $?
-
-   print "restart ${COMPONENT} services"
-   systemctl daemon-reload &>>${LOG_FILE} && systemctl restart ${COMPONENT} &>>${LOG_FILE} && systemctl enable ${COMPONENT} &>>${LOG_FILE}
-   statcheck $?
-
-   SERVICE_SETUP
 }
 
 MAVEN() {
